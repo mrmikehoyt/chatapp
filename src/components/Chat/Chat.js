@@ -21,8 +21,6 @@ const Chat = ({ location, history }) => {
 	const [ message, setMessage ] = useState('');
 	const [ messages, setMessages ] = useState([]);
 
-	const ENDPOINT = process.env.REACT_APP_BASE_API_URL;
-
 	useEffect(() => {
 		(async () => {
 			try {
@@ -30,7 +28,7 @@ const Chat = ({ location, history }) => {
 				const { data } = await axios.get(`/api/users/${name}`);
 				if (data.error) return history.push(`/`);
 
-				socket = io(ENDPOINT);
+				socket = io();
 				setName(name);
 	
 				socket.emit('join', { name }, (error) => {
